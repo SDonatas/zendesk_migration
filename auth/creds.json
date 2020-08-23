@@ -1,0 +1,21 @@
+{"1": { "authType": "api token",
+      "email": "",
+      "token": "",
+      "base url": "",
+      "ui description": "Migration Token"
+    },
+
+  "2": { "authType": "api token",
+        "email": "",
+        "token": "",
+        "base url": "",
+        "ui description": "Migration Token"
+       },
+
+  "3": {"authType": "api token",
+        "email": "",
+        "token": "",
+        "base url": "",
+        "ui description": "Migration Token"
+      }
+}

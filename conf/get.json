@@ -1,0 +1,34 @@
+[{"auth_id": "2",
+  "get_id": "1",
+  "name": "tickets",
+  "endpoint": "incremental/tickets/cursor.json?start_time=1476835200",
+  "child_nodes": [{"name": "comments",
+                   "endpoint": "tickets/{}/comments.json?include=users",
+                   "parent_id": "id"
+                  }
+                 ]
+
+},
+
+
+{"auth_id": "2",
+  "get_id": "3",
+  "name": "tickets",
+  "endpoint": "tickets.json?include=comment_count",
+  "child_nodes": [{"name": "comments",
+                   "endpoint": "tickets/{}/comments.json?include=users",
+                   "parent_id": "id"
+                  } 
+
+                 ]
+
+},
+
+{"auth_id": "2",
+ "get_id": "2",
+ "name": "users",
+ "endpoint": "users.json"
+}
+
+
+]

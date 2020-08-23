@@ -1,0 +1,259 @@
+[{
+  "COMMENT": "0-TICKETS ==============CON-LEAFWORKS",
+  "auth_id": "1",
+  "get_id": "1",
+  "post_id": "1",
+  "endpoint": "imports/tickets/create_many.json",
+  "batch_size": 100,
+  "schema": {"url": null,
+             "fields": null,
+             "metric_set": null,
+             "raw_subject": null,
+             "satisfaction_rating": null,
+             "status": null,
+             "requester_id": "requester_id",
+             "assignee_id": "assignee_id",
+             "external_id": "id",
+             "subject": "subject",
+             "description": "description",
+             "tags": "tags",
+             "comments": "comments",
+             "custom_fields": "custom_fields",
+             "updated_at": "updated_at",
+             "created_at": "created_at"
+            },
+
+   "override_schema": {"requester_id": "368433698940",
+                       "assignee_id": "368433698940",
+                      "comments": {"author_id": 368433698940},
+                      "status": "closed"
+                      
+                      },
+
+   "filters": {"group_id": 25895609},
+
+   "upload_comment_attachements": true,
+
+
+
+  "name": "tickets",
+
+   "test": false,
+
+  "add": {"tags": ["payreto_migration", "run6"]}
+  
+  },
+
+
+
+  {
+    "COMMENT": "1-USERS ==============CON-LEAFWORKS",
+    "test": false,
+   "auth_id": "1",
+   "post_id": "2",
+   "get_id": "2",
+   "endpoint": "users/create_or_update_many.json",
+   "batch_size": 100,
+   "name": "users",
+
+   "schema": {"name": "name",
+              "email": "email",
+              "phone": "phone",
+              "role": "role",
+              "time_zone": "time_zone",
+              "iana_time_zone": "iana_time_zone",
+              "locale_id": "locale_id",
+              "locale": "locale",
+              "alias": "alias",
+              "last_login_at": "last_login_at",
+              "signature": "signature",
+              "details": "details",
+              "notes": "notes",
+              "role_type": "role_type",
+              "ticket_restriction": "ticket_restriction",
+              "user_fields": "user_fields",
+              "created_at": "created_at",
+              "updated_at": "updated_at",
+              "external_id": "id",
+              "tags": "tags",
+              "verified": null
+              },
+
+
+
+   "override_schema": {"email": {"parseFunctions": [{"change_email_domain_to": "@leafworks.de"},
+                                                    {"convert_null_to_value": ""}
+                                                    ]
+                                },
+                       "phone": {"parseFunctions": {"convert_null_to_value": ""}},
+                       "verified": true
+                                 
+                      },
+
+    "filters": {"role": "end-user"},
+
+
+   "add": {"tags": ["payreto_migration", "run6"]}
+
+
+
+  },
+
+
+
+  {"COMMENT": "2-Tickets ==============CON-LEAFWORKS",
+    "auth_id": "1",
+    "get_id": "1",
+    "post_id": "3",
+    "processing_batch": 1000,
+    "endpoint": "imports/tickets/create_many.json",
+    "batch_size": 100,
+    "schema": {"url": null,
+               "fields": null,
+               "metric_set": null,
+               "raw_subject": null,
+               "satisfaction_rating": null,
+               "status": "status",
+               "requester_id": "requester_id",
+               "assignee_id": "assignee_id",
+               "external_id": "id",
+               "subject": "subject",
+               "description": "description",
+               "tags": "tags",
+               "comments": "comments",
+               "custom_fields": "custom_fields",
+               "updated_at": "updated_at",
+               "created_at": "created_at"
+              },
+
+    "add_prefix": {"external_id": "payreto_"},
+  
+     "override_schema": {"assignee_id": "368433698940",
+                        "status": "closed"
+                        },
+
+     "migrate_users": {"fields": ["requester_id", {"comments": "author_id"}],
+                       "pass_data_to_api": ["email", "name", "phone", "shared_phone_number"],
+                       "parseFunctions":  [{"email": [{"change_email_domain_to": "@leafworks.de"}]
+                                           }
+                                          ]
+                      },
+      
+      
+      "global_parse_functions": [{"apply_regex": {"regex": "(\\[\\s\\d{4,6}\\s\\]|\\(\\d{4,6}\\))",
+                                                 "output_to_custom_field_id": 360012928139
+                      
+                                                }
+                                }],
+      
+     "upload_comment_attachements": false,
+
+     "limit_upload_to": 20,
+     "skip_tickets_with_matching_external_id": true,
+
+     "filters": {"group_id": 25895609},
+    "name": "tickets",
+    "test": false,
+    "add": {"tags": ["payreto_migration", "run12"]}
+    },
+
+
+    {
+      "COMMENT": "3-Tickets ==============VR-PAYMENT",
+      "auth_id": "3",
+      "get_id": "1",
+      "post_id": "4",
+      "processing_batch": 1000,
+      "endpoint": "imports/tickets/create_many.json",
+      "batch_size": 100,
+      "schema": {"url": null,
+                 "fields": null,
+                 "metric_set": null,
+                 "raw_subject": null,
+                 "satisfaction_rating": null,
+                 "status": "status",
+                 "requester_id": "requester_id",
+                 "assignee_id": "assignee_id",
+                 "external_id": "id",
+                 "followup_ids": "followup_ids",
+                 "subject": "subject",
+                 "description": "description",
+                 "tags": "tags",
+                 "comments": "comments",
+                 "custom_fields": "custom_fields",
+                 "updated_at": "updated_at",
+                 "created_at": "created_at"
+                },
+
+        "add_prefix": {"external_id": "payreto_"},
+    
+       "override_schema": {"assignee_id": "369518953553",
+                          "status": "closed"
+                          },
+  
+       "migrate_users": {"fields": ["requester_id", {"comments": "author_id"}],
+                         "pass_data_to_api": ["email", "name", "phone", "shared_phone_number"],
+                         "parseFunctions":  []
+                        },
+                        
+                        
+        "global_parse_functions": [{"apply_regex": {"regex": "(\\[\\s\\d{4,6}\\s\\]|\\(\\d{4,6}\\))",
+                                                 "output_to_custom_field_id": 360012928139,
+                                                 "remove_characters": ["[","]","(",")"]
+                                                   }
+                                    },
+                                    {"transfer_objects": [{"field_name": {"custom_fields": "id"},
+                                                          "from_id": 29944749,
+                                                          "to_id": 360006250900
+
+
+                                                          }]
+                                    },
+
+                                    {"transfer_to_comments": [{"field_name": "followup_ids",
+                                                              "prefix": "payreto_"
+                                                              }
+                                                            ]
+                                    },
+
+                                    {"clean_objects": [{"field": "custom_fields",
+                                                        "keep_fields": {"id": [360012928139, 360006250900]}
+                                                       },
+                                                       {"field": "comments",
+                                                        "keep_fields": ["type", "author_id", "body", "html_body", "plain_body", "public", "via", "created_at", "metadata", "uploads"]
+                                                       }
+                                                      ]
+                                    } 
+
+
+                                
+
+                                    
+                                   
+                                  ],
+
+       "upload_comment_attachements": true,
+       
+       "skip_tickets_with_matching_external_id": true,
+
+      "name": "tickets",
+
+      "filters": {"group_id": 25895609},
+  
+      "test": false,
+
+      "final_pass_fields": ["url", "fields", "metric_set", "raw_subject", "satisfaction_rating", "status", "requester_id",
+                            "assignee_id", "external_id", "subject", "description", "tags", "comments", "custom_fields", "updated_at",
+                            "created_at", "job_status"
+                           ],
+    
+      "add": {"tags": ["payreto_migration", "lfrun07"]}
+      
+      }
+  
+
+
+      
+    
+
+]
